@@ -42,7 +42,17 @@ COPY provisioning/51-android.rules /etc/udev/rules.d/51-android.rules
 USER $USER
 
 WORKDIR /home/$USER
+#obryanvip
+RUN apt-get update && apt-get install -y \
+    fluxbox \
+    xvfb \
+    x11-apps \
+    && rm -rf /var/lib/apt/lists/*
 
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+CMD ["/start.sh"]
 #Install Flutter
 ARG FLUTTER_URL=https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.13.6-stable.tar.xz
 ARG FLUTTER_VERSION=3.13.6
